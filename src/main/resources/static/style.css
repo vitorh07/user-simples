@@ -41,3 +41,11 @@
     color: white;
     cursor: pointer;
 }
+
+.inputs h3{
+    margin: 10px 0;
+}
+
+.inputs span{
+    color: red;
+}

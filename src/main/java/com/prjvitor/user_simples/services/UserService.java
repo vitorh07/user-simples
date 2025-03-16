@@ -45,4 +45,16 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    // Método Login
+    public User login(String identifier, String password) {
+        User user = userRepository.findByUsername(identifier);
+        if (user == null) {
+            user = userRepository.findByEmail(identifier);
+        }
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null; // Ou pode lançar uma Exception personalizada se preferir
+    }    
 }

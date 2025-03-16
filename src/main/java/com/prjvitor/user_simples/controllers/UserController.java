@@ -2,6 +2,8 @@ package com.prjvitor.user_simples.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prjvitor.user_simples.DTO.LoginRequest;
 import com.prjvitor.user_simples.entities.User;
 import com.prjvitor.user_simples.services.UserService;
 
@@ -58,4 +61,17 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    // Login
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    User loggedUser = userService.login(request.getIdentifier(), request.getPassword());
+
+    if (loggedUser == null) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
+    }
+
+        return ResponseEntity.ok(loggedUser);
+    }   
+
 }

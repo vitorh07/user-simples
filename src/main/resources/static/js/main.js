@@ -3,10 +3,9 @@ function cadastrar(){
     var password = document.getElementById('password').value;
     var email = document.getElementById('email').value;
 
-
     if(username == '' || password == '' || email == ''){
         document.getElementById('response').innerHTML = 'Preencha todos os campos!';
-        return
+        return;
     }
 
     fetch('http://localhost:8080/api/users/register', {
@@ -29,9 +28,7 @@ function cadastrar(){
         console.error('Error:', error);
         document.getElementById('response').innerHTML = 'Erro ao cadastrar usuário!';
     });
-
-    
-    
 }
 
-document.getElementById('btn').addEventListener('click', cadastrar);
+document.getElementById('btnC').addEventListener('click', cadastrar);
+
