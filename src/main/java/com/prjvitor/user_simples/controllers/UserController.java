@@ -30,13 +30,13 @@ public class UserController {
     }
 
     // Deletar
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
     // Buscar por ID
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
@@ -58,5 +58,4 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
-
 }
