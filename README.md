@@ -78,6 +78,7 @@ O projeto utiliza o banco de dados H2 em memória. Para acessar o console do H2,
 - **`src/main/java/com/prjvitor/user_simples/repositories`**: Contém o repositório `UserRepository`.
 - **`src/main/java/com/prjvitor/user_simples/services`**: Contém o serviço `UserService`.
 - **`src/main/java/com/prjvitor/user_simples/controllers`**: Contém o controlador `UserController`.
+- **`src/main/java/com/prjvitor/user_simples/DTO`**: Contém a classe `LoginRequest`.
 - **`src/main/resources`**: Contém os arquivos de configuração `application.properties`, `schema.sql` e `data.sql`.
 
 ## Licença
