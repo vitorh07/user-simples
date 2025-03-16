@@ -12,7 +12,7 @@ Este é um projeto simples de gerenciamento de usuários utilizando Spring Boot,
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/vitorh07/user-simples.git
+    git clone https://github.com/seu-usuario/user-simples.git
     cd user-simples
     ```
 
@@ -60,7 +60,7 @@ O projeto utiliza o banco de dados H2 em memória. Para acessar o console do H2,
 - **URL:** `http://localhost:8080/h2-console`
 - **JDBC URL:** `jdbc:h2:mem:testdb`
 - **Username:** `sa`
-- **Password:** `password`
+- **Password:** *(deixe em branco)*
 
 ## Estrutura do Projeto
 
