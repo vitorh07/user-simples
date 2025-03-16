@@ -4,7 +4,7 @@ Este é um projeto simples de gerenciamento de usuários utilizando Spring Boot,
 
 ## Requisitos
 
-- Java 21
+- Java 17
 - Maven
 
 ## Configuração do Projeto
