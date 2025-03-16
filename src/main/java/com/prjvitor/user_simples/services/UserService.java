@@ -1,9 +1,11 @@
-package com.prjvitor.services;
+package com.prjvitor.user_simples.services;
+
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.prjvitor.entities.User;
-import com.prjvitor.repositories.UserRepository;
+import com.prjvitor.user_simples.entities.User;
+import com.prjvitor.user_simples.repositories.UserRepository;
 
 @Service
 public class UserService {
@@ -22,6 +24,11 @@ public class UserService {
     // Método Get
     public User getUser(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    // Método get all
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     // Método get por username

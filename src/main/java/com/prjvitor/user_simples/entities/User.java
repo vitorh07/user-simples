@@ -1,4 +1,4 @@
-package com.prjvitor.entities;
+package com.prjvitor.user_simples.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
