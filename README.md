@@ -39,7 +39,7 @@ A API fornece os seguintes endpoints para gerenciamento de usuários:
         ```
 
 - **Buscar Usuário por ID**
-    - **GET** `/api/users/{id}`
+    - **GET** `/api/users/id/{id}`
 
 - **Buscar Usuário por Username**
     - **GET** `/api/users/username/{username}`
@@ -48,10 +48,20 @@ A API fornece os seguintes endpoints para gerenciamento de usuários:
     - **GET** `/api/users/email/{email}`
 
 - **Deletar Usuário**
-    - **DELETE** `/api/users/{id}`
+    - **DELETE** `/api/users/id/{id}`
 
 - **Buscar Todos os Usuários**
     - **GET** `/api/users`
+
+- **Login**
+    - **POST** `/api/users/login`
+    - Corpo da Requisição:
+        ```json
+        {
+            "identifier": "vitor",
+            "password": "teste123"
+        }
+        ```
 
 ## Banco de Dados H2
 
@@ -64,15 +74,11 @@ O projeto utiliza o banco de dados H2 em memória. Para acessar o console do H2,
 
 ## Estrutura do Projeto
 
-- **`src/main/java/com/prjvitor/entities`**: Contém a entidade `User`.
-- **`src/main/java/com/prjvitor/repositories`**: Contém o repositório `UserRepository`.
-- **`src/main/java/com/prjvitor/services`**: Contém o serviço `UserService`.
-- **`src/main/java/com/prjvitor/controllers`**: Contém o controlador `UserController`.
+- **`src/main/java/com/prjvitor/user_simples/entities`**: Contém a entidade `User`.
+- **`src/main/java/com/prjvitor/user_simples/repositories`**: Contém o repositório `UserRepository`.
+- **`src/main/java/com/prjvitor/user_simples/services`**: Contém o serviço `UserService`.
+- **`src/main/java/com/prjvitor/user_simples/controllers`**: Contém o controlador `UserController`.
 - **`src/main/resources`**: Contém os arquivos de configuração `application.properties`, `schema.sql` e `data.sql`.
-
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
 ## Licença
 
