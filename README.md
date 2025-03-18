@@ -2,6 +2,8 @@
 
 Este é um projeto simples de gerenciamento de usuários utilizando Spring Boot, H2 Database e JPA.
 
+![API Funcionando](/src/main/resources/static/assets/api.gif)
+
 ## Requisitos
 
 - Java 17
