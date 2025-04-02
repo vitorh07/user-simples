@@ -122,7 +122,7 @@ O projeto utiliza **JWT (JSON Web Token)** para autenticação. Após o login, o
 - **`src/main/java/com/prjvitor/user_simples/controllers`**: Contém o controlador `UserController`.
 - **`src/main/java/com/prjvitor/user_simples/security`**: Contém as classes relacionadas ao Spring Security e JWT (`JwtUtil`, `JwtAuthFilter`, `CustomUserDetailsService`).
 - **`src/main/java/com/prjvitor/user_simples/DTO`**: Contém a classe `LoginRequest`.
-- **`src/main/resources`**: Contém os arquivos de configuração `application.properties`, `schema.sql` e `data.sql`.
+- **`src/main/resources`**: Contém os arquivos de configuração `application.properties`.
 
 ## Licença
 
