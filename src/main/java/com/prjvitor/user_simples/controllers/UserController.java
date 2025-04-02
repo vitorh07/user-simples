@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -77,13 +78,46 @@ public class UserController {
     // Login
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
-        // Substitua pela lógica de autenticação
-        if ("vitor".equals(loginRequest.getIdentifier()) && "vitor123".equals(loginRequest.getPassword())) {
-            String token = JwtUtil.generateToken(loginRequest.getIdentifier()); // Gere o token JWT
+        // Buscar o usuário pelo identifier (username ou email)
+        User user = userService.login(loginRequest.getIdentifier(), loginRequest.getPassword());
+
+        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            // Gerar o token JWT
+            String token = JwtUtil.generateToken(user.getUsername());
             Map<String, String> response = new HashMap<>();
-            response.put("token", token); // Retorne apenas o token
+            response.put("token", token); // Retornar o token
             return ResponseEntity.ok(response);
         }
-        return ResponseEntity.status(401).body(null); // Retorne 401 se as credenciais forem inválidas
+
+        // Retornar 401 se as credenciais forem inválidas
+        return ResponseEntity.status(401).body(null);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getUserDetails(@RequestHeader("Authorization") String authorizationHeader) {
+        // Verificar se o cabeçalho Authorization está presente
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(400).body("Token JWT não fornecido ou inválido.");
+        }
+
+        // Extrair o token do cabeçalho
+        String token = authorizationHeader.substring(7); // Remove "Bearer "
+
+        // Validar o token
+        if (!JwtUtil.validateToken(token)) {
+            return ResponseEntity.status(401).body("Token inválido ou expirado.");
+        }
+
+        // Extrair o username do token
+        String username = JwtUtil.extractUsername(token);
+
+        // Buscar o usuário no banco de dados
+        User user = userService.getUserByUsername(username);
+        if (user == null) {
+            return ResponseEntity.status(404).body("Usuário não encontrado.");
+        }
+
+        // Retornar as informações do usuário
+        return ResponseEntity.ok(user);
     }
 }
