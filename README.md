@@ -1,6 +1,6 @@
 # User Simples
 
-Este é um projeto simples de gerenciamento de usuários utilizando Spring Boot, H2 Database e JPA.
+Este é um projeto simples de gerenciamento de usuários utilizando Spring Boot, H2 Database, JPA, Spring Security e JWT para autenticação.
 
 ![API Funcionando](/src/main/resources/static/assets/api.gif)
 
@@ -27,7 +27,9 @@ Este é um projeto simples de gerenciamento de usuários utilizando Spring Boot,
 
 ## Endpoints da API
 
-A API fornece os seguintes endpoints para gerenciamento de usuários:
+A API fornece os seguintes endpoints para gerenciamento de usuários e autenticação:
+
+### **Gerenciamento de Usuários**
 
 - **Criar Usuário**
     - **POST** `/api/users/register`
@@ -55,6 +57,8 @@ A API fornece os seguintes endpoints para gerenciamento de usuários:
 - **Buscar Todos os Usuários**
     - **GET** `/api/users`
 
+### **Autenticação e Autorização**
+
 - **Login**
     - **POST** `/api/users/login`
     - Corpo da Requisição:
@@ -62,6 +66,29 @@ A API fornece os seguintes endpoints para gerenciamento de usuários:
         {
             "identifier": "vitor",
             "password": "teste123"
+        }
+        ```
+    - Resposta:
+        ```json
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "username": "vitor",
+            "email": "vitor@email.com"
+        }
+        ```
+
+- **Verificar Token e Obter Informações do Usuário**
+    - **GET** `/api/users/me`
+    - Cabeçalho da Requisição:
+        ```
+        Authorization: Bearer <seu_token_jwt>
+        ```
+    - Resposta:
+        ```json
+        {
+            "id": 1,
+            "username": "vitor",
+            "email": "vitor@email.com"
         }
         ```
 
@@ -74,12 +101,26 @@ O projeto utiliza o banco de dados H2 em memória. Para acessar o console do H2,
 - **Username:** `sa`
 - **Password:** *(deixe em branco)*
 
+## Autenticação com JWT
+
+O projeto utiliza **JWT (JSON Web Token)** para autenticação. Após o login, o back-end retorna um token JWT que deve ser enviado no cabeçalho `Authorization` em todas as requisições protegidas.
+
+### **Como Funciona o JWT no Projeto**
+1. O usuário faz login no endpoint `/api/users/login`.
+2. O back-end valida as credenciais e retorna um token JWT.
+3. O front-end armazena o token (por exemplo, no `localStorage`).
+4. O token é enviado no cabeçalho `Authorization` para acessar endpoints protegidos, como `/api/users/me`.
+
+### **Validade do Token**
+- O token JWT tem uma validade de **24 horas** (configurada no `JwtUtil`).
+
 ## Estrutura do Projeto
 
 - **`src/main/java/com/prjvitor/user_simples/entities`**: Contém a entidade `User`.
 - **`src/main/java/com/prjvitor/user_simples/repositories`**: Contém o repositório `UserRepository`.
 - **`src/main/java/com/prjvitor/user_simples/services`**: Contém o serviço `UserService`.
 - **`src/main/java/com/prjvitor/user_simples/controllers`**: Contém o controlador `UserController`.
+- **`src/main/java/com/prjvitor/user_simples/security`**: Contém as classes relacionadas ao Spring Security e JWT (`JwtUtil`, `JwtAuthFilter`, `CustomUserDetailsService`).
 - **`src/main/java/com/prjvitor/user_simples/DTO`**: Contém a classe `LoginRequest`.
 - **`src/main/resources`**: Contém os arquivos de configuração `application.properties`, `schema.sql` e `data.sql`.
 
